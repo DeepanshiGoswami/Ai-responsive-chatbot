@@ -14,7 +14,13 @@ class State(TypedDict):
     messages: Annotated[list, add_messages]
 
 # Initialize LLM
-llm = ChatGroq(groq_api_key=groq_api_key, model_name="Gemma2-9b-It")
+from langchain_groq import ChatGroq
+
+llm = ChatGroq(
+    model="llama-3.1-8b-instant",
+    groq_api_key=os.getenv("GROQ_API_KEY"),
+)
+
 
 # Define chatbot node
 def chatbot(state: State):
@@ -63,7 +69,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Title
-st.markdown("<h1 style='text-align: center;'>🤖 Groq Chatbot Assistant</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>🤖 Chatbot Assistant</h1>", unsafe_allow_html=True)
 
 # Initialize session state
 if "messages" not in st.session_state:
